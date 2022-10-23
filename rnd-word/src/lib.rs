@@ -14,10 +14,10 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn get_n_words(n: u8) -> String {
-    log("Started executing!!!!");
+    // log("Started executing!!!!");
     let mut i = 0;
     let words = get_words();
-    log("Read words!!!!");
+    // log("Read words!!!!");
     let word_list: Vec<&str> = words.trim().split('\n').collect();
 
     let mut selected_words = Vec::<String>::new();
@@ -46,7 +46,7 @@ pub fn get_n_words(n: u8) -> String {
     }
 
     println!("{:?}", selected_words);
-    log("Completed!!!!");
+    // log("Completed!!!!");
 
     selected_words.join(":")
 }
