@@ -1,49 +1,65 @@
 <script lang="ts">
-	import svelteLogo from './assets/svelte.svg';
-	import Counter from './lib/Counter.svelte';
+  import init, { get_n_words } from 'rnd-word';
+  import { onMount } from 'svelte';
+
+  let words = [];
+  let ready = false;
+  
+  function handleClick() {
+    if (ready) {
+      words = get_n_words(5).split(':');
+      console.log(words)
+    }
+  }
+
+  onMount(async () => {
+    await init()
+    ready = true;
+  })
 </script>
 
 <main>
-	<div>
-		<a rel="noreferrer" href="https://vitejs.dev" target="_blank">
-			<img src="/vite.svg" class="logo" alt="Vite Logo" />
-		</a>
-		<a rel="noreferrer" href="https://svelte.dev" target="_blank">
-			<img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-		</a>
-	</div>
+  <div class="mb-4">
+    <h1>5 Random Words</h1>
+    <div>Get five random words for projects some fun project ideas...</div>
+  </div>
 
+  <!-- Show loading untill wasm module is loaded.. -->
+  {#if !ready}
+    <div>Loading....</div>
+  {:else}
+    <button on:click={handleClick}>Get random words</button>
 
-	<h1>Vite + Svelte</h1>
-  
-	<div class="card">
-		<Counter />
-	</div>
+    <!-- If words are generated, then show heading -->
+    {#if words.length != 0}
+      <h4>Generated words</h4>
+    {/if}
 
-	<p>
-		Check out <a
-			rel="noreferrer"
-			href="https://github.com/sveltejs/kit#readme"
-			target="_blank">SvelteKit</a
-		>, the official Svelte app framework powered by Vite!
-	</p>
-
-	<p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+    <!-- Container div -->
+    <div class="d-flex">
+      {#each words as word}
+        <div class="light">{word}</div>
+      {/each}
+    </div>
+  {/if}
 </main>
 
 <style>
-	.logo {
-		height: 6em;
-		padding: 1.5em;
-		will-change: filter;
-	}
-	.logo:hover {
-		filter: drop-shadow(0 0 2em #646cffaa);
-	}
-	.logo.svelte:hover {
-		filter: drop-shadow(0 0 2em #ff3e00aa);
-	}
-	.read-the-docs {
-		color: #888;
-	}
+  .mb-4 {
+    margin-bottom: 2rem;
+  }
+
+  .light {
+    color: black;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .d-flex {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
