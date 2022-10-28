@@ -1,11 +1,21 @@
 <script lang="ts">
 	import init, { get_n_words } from 'rnd-word';
 
-	let words = [];
+	type Word = {
+		text: string;
+		selected: boolean;
+	};
+
+	let words: Word[] = [];
 
 	function handleClick() {
-		words = get_n_words(5).split(':');
-		console.log(words);
+		const selectedWords = words.filter((w) => w.selected);
+
+		let newWords: Word[] = get_n_words(5 - selectedWords.length)
+			.split(':')
+			.map((word) => ({ text: word, selected: false }));
+
+		words = [...selectedWords, ...newWords];
 	}
 </script>
 
@@ -15,29 +25,36 @@
 		<div>Get five random words for projects some fun project ideas...</div>
 	</div>
 
-	<!-- Show loading untill wasm module is loaded.. -->
+	<!-- Show loading until wasm module is loaded.. -->
 	{#await init()}
 		<div>Loading....</div>
 	{:then _}
-		<button on:click={handleClick}>Get random words</button>
+		<button class="mb-4" on:click={handleClick}>Get random words</button>
 
-		<!-- If words are generated, then show heading -->
-		{#if words.length != 0}
-			<h4>Generated words</h4>
+		{#if words.length}
+			<div class="d-flex border p-6">
+				<h4>Generated words</h4>
+
+				{#each words as word}
+					<button
+						class="light"
+						class:selected={word.selected}
+						on:click={() => (word.selected = !word.selected)}
+						>{word.text}</button
+					>
+				{/each}
+			</div>
 		{/if}
-
-		<!-- Container div -->
-		<div class="d-flex">
-			{#each words as word}
-				<div class="light">{word}</div>
-			{/each}
-		</div>
 	{/await}
 </main>
 
 <style>
 	.mb-4 {
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	.p-6 {
+		padding: 1.5rem;
 	}
 
 	.light {
@@ -52,5 +69,15 @@
 		gap: 1rem;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.selected {
+		background: #ccc;
+		color: black;
+	}
+
+	.border {
+		border: 2px solid gray;
+		border-radius: 25px;
 	}
 </style>
