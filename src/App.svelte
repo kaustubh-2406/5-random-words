@@ -22,7 +22,7 @@
 <main>
 	<div class="mb-4">
 		<h1>5 Random Words</h1>
-		<div>Get five random words for projects some fun project ideas...</div>
+		<div>Get five random words to spark some interesting project ideas..</div>
 	</div>
 
 	<!-- Show loading until wasm module is loaded.. -->
@@ -33,7 +33,7 @@
 
 		{#if words.length}
 			<div class="d-flex border p-6">
-				<h4>Generated words</h4>
+				<h4>Generated words:</h4>
 
 				{#each words as word}
 					<button
