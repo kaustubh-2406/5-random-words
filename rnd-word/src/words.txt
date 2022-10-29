@@ -1,6 +1,4 @@
-pub mod data {
-    pub fn get_words() -> &'static str {
-        "
+"
 a
 aa
 aaa
@@ -10000,6 +9998,5 @@ zope
 zshops
 zu
 zum
-zus"
-    }
-}
+zus
+"
