@@ -1,0 +1,9 @@
+{
+	"name": "rnd-word",
+	"version": "0.0.0",
+	"license": "MIT",
+	"description": "rust based wasm library.",
+	"scripts": {
+		"build": "wasm-pack build --target web"
+	}
+}

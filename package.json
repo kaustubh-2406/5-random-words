@@ -1,27 +1,18 @@
 {
-	"name": "random-words",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "yarn wasm && vite",
-		"build": "vite build",
-		"preview": "vite preview",
-		"wasm": "wasm-pack build ./rnd-word --target web",
-		"check": "svelte-check --tsconfig ./tsconfig.json"
-	},
-	"devDependencies": {
-		"@sveltejs/vite-plugin-svelte": "^1.0.2",
-		"@tsconfig/svelte": "^3.0.0",
-		"eslint": "^8.26.0",
-		"eslint-plugin-svelte": "^2.10.0",
-		"prettier": "^2.7.1",
-		"svelte": "^3.49.0",
-		"svelte-check": "^2.8.1",
-		"svelte-preprocess": "^4.10.7",
-		"tslib": "^2.4.0",
-		"typescript": "^4.6.4",
-		"vite": "^3.1.0",
-		"vite-plugin-wasm-pack": "^0.1.12"
-	}
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "prettier": "^2.5.1",
+    "turbo": "latest"
+  }
 }

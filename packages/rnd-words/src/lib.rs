@@ -5,7 +5,7 @@ extern "C" {
     #[wasm_bindgen(js_namespace = Math)]
     fn random() -> f64;
 
-    #[wasm_bindgen(js_namespace=console)]
+    #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
 }
 
@@ -39,8 +39,6 @@ pub fn get_n_words(n: u8) -> String {
             None => continue,
         }
     }
-
-    println!("{:?}", selected_words);
 
     selected_words.join(":")
 }

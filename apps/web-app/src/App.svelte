@@ -1,5 +1,5 @@
 <script lang="ts">
-	import init, { get_n_words } from 'rnd-word';
+	import init, { get_n_words } from 'rnd-word/pkg/rnd_word';
 
 	type Word = {
 		text: string;
