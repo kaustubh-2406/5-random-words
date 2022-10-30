@@ -9,9 +9,9 @@ echo "Installing wasm-pack..."
 # Install wasm-pack
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh -s -- -y
 
-echo "Building wasm-parser..."
-# Build wasm-parser 
-npm run wasm
+# echo "Building wasm-parser..."
+# # Build wasm-parser 
+# npm run wasm
 
 echo "Build static frontend client..."
 # Build static html for the react client
