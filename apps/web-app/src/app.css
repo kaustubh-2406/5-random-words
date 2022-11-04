@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -78,4 +78,13 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body, #app {
+  @apply w-screen h-screen overflow-x-hidden overflow-y-scroll bg-[#111827] text-white;
 }
