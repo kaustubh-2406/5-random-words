@@ -1,5 +1,6 @@
 <script lang="ts">
 	import init, { get_n_words } from 'rnd-word/pkg/rnd_word';
+	import Heart from './component/Heart.svelte';
 
 	type Word = {
 		text: string;
@@ -14,11 +15,14 @@
 	function handleClick() {
 		const selectedWords = words.filter((w) => w.selected);
 
-		let newWords: Word[] = get_n_words(5 - selectedWords.length)
-			.split(':')
-			.map((word) => ({ text: word, selected: false }));
+		const n = 5 - selectedWords.length;
+		if (n > 0) {
+			let newWords: Word[] = get_n_words(n)
+				.split(':')
+				.map((word) => ({ text: word, selected: false }));
 
-		words = [...selectedWords, ...newWords];
+			words = [...selectedWords, ...newWords];
+		}
 	}
 </script>
 
@@ -53,11 +57,6 @@
 					>
 						Get random words
 					</button>
-					<!-- {#if words.length}
-						
-					{:else}
-						<div class="w-full">No words selected!</div>
-					{/if} -->
 				{/await}
 			</div>
 		</div>
@@ -85,8 +84,8 @@
 				<div class="leading-relaxed h-60">
 					{#if active === 'description'}
 						<p>
-							Click the following button to get some auto generated
-							suggestions...
+							You can click on words to lock them, and thengenerate another set
+							of random words.
 						</p>
 
 						<button
@@ -99,9 +98,8 @@
 
 					{#if active === 'details'}
 						<p>
-							Hey! You found us. This helper would try and suggest you some
-							words that you might lock by clicking on the suggestion, and then
-							generate another set of random words.
+							Hey! You found us. This helper would try and suggest you 5 random
+							words that you might use for starting your next project.
 						</p>
 						<p>
 							You could also take a look at
@@ -126,14 +124,15 @@
 						<div class="text-white">Loading....</div>
 					{:then _}
 						{#if words.length}
-							<div class="flex items-center p-6 gap-2 flex-wrap">
+							<div class="flex justify-center items-center p-6 gap-2 flex-wrap">
 								{#each words as word}
 									<button
-										class="color-black p-2 px-6 rounded-lg"
+										class="color-black p-2 px-6 rounded-lg flex justify-between items-center  transition-all duration-100"
 										class:selected={word.selected}
 										on:click={() => (word.selected = !word.selected)}
 									>
-										{word.text}
+										<span>{word.text}</span>
+										<Heart selected={word.selected} />
 									</button>
 								{/each}
 							</div>
